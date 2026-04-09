@@ -1,0 +1,24 @@
+[Unit]
+Description= Packard Tri-Carb 2100TR RS-232 Capture Service
+#Update these paths to match your unique serial adapter
+Requires=YourUsbDevicePath
+BindsTo=YourUsbDevicePath
+After=YourUsbDevicePath
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=youruser
+#Update this path to match your environment
+ExecStart=/home/youruser/capture_serial.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=15
+SendSIGKILL=no
+KillSignal=SIGTERM
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
