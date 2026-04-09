@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-# ==================================================
-# parser.py — Tri-Carb RS-232 Parser
-# ==================================================
+# PIPELINE STAGE: TRANSFORMATION
+
 """
 Parses captured binary data from a Packard Tri-Carb LSC (Liquid Scintillation Counter) instrument
 and converts it into structured output.
@@ -25,6 +24,10 @@ reconstructed using timestamp patterns rather than relying on delimiters.
 Pipeline Role:
 Cap (.bin) → Parser → JSON → Reporter
 """
+
+# ==================================================
+# IMPORTS
+# ==================================================
 
 import sys
 import os
@@ -50,7 +53,7 @@ if not os.path.exists(bin_file):
     sys.exit(1)
 
 # ==================================================
-# READ AND DECODE RAW DATA
+# FILE READ / DECODE
 # ==================================================
 try:
     with open(bin_file, "rb") as f:
@@ -61,7 +64,7 @@ except Exception as e:
     sys.exit(1)
 
 # ==================================================
-# IDENTIFY FRAME TYPE
+# FRAME TYPE DETECTION
 # ==================================================
 # The first line determines whether this is:
 # -SAMPLE run
@@ -75,7 +78,7 @@ first_line = cleaned.splitlines()[0] if cleaned else ""
 print(f"FIRST LINE: {first_line!r}")
 
 # ==================================================
-# SNC PATH (Calibration Reports)
+# SNC PROCESSING PATH (Calibration Reports)
 # ==================================================
 
 SNC_HEADERS = (
@@ -240,9 +243,6 @@ def safe_float(x):
     except Exception:
         return 0.0
 
-# --------------------------------------------------
-# HEADER PARSING
-# --------------------------------------------------
 header_parts = header.split(",")
 
 run_header = {
@@ -338,9 +338,9 @@ for i, (row, ts) in enumerate(zip(rows, timestamps)):
     
 print(f"Records parsed: {len(run_records)}")
 
-# --------------------------------------------------
-# SAVE JSON OUTPUT
-# --------------------------------------------------
+# ==================================================
+# OUTPUT (JSON + FILE PROMOTION)
+# ==================================================
 
 structured_dir = "/home/labuser/Desktop/LSC_Reports/Processing/Structured"
 os.makedirs(structured_dir, exist_ok=True)
@@ -378,9 +378,9 @@ try:
 except Exception as e:
     print(f"Rename failed: {e}")
 
-# --------------------
-# CALL REPORTER
-# --------------------
+# ==================================================
+# HANDOFF TO REPORTER
+# ==================================================
 subprocess.Popen([
     "python3",
     "/home/labuser/lsc-capture/reporter.py",
