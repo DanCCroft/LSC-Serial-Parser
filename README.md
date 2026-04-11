@@ -92,26 +92,26 @@ To use:
 ## File Structure Overview
 ...
 /home/User/
-|-capture_serial.py  # Serial capture and frame detection
++--capture_serial.py  # Serial capture and frame detection
 
 /home/labuser/lsc-capture/
-├── parser.py               # Protocol parsing and JSON output
-├── reporter.py             # Human-readable report generation
-├── structured_organizer.py # Periodic file organization
-├── last_snc.txt            # Auto-updated calibration timestamp
-└── capture_serial.service  # Copy to /etc/systemd/system/
++--parser.py               # Protocol parsing and JSON output
++-- reporter.py             # Human-readable report generation
++-- structured_organizer.py # Periodic file organization
++-- last_snc.txt            # Auto-updated calibration timestamp
+`-- capture_serial.service  # Copy to /etc/systemd/system/
 
 Output Structure
 Reports are organized automatically under a configurable base directory:
 LSC_Reports/
-├── Protocol_8/
-│   └── 2026-03-19/
-│       └── P8_2026-Mar-19-1520.txt
-├── SNC/
-│   └── snc_2026-Mar-19-1354.txt
-└── Processing/
-    ├── Ingest/        # Active capture landing zone
-    └── Structured/    # Parsed files awaiting organization
++--Protocol_8/
+│   `--2026-03-19/
+│       `--P8_2026-Mar-19-1520.txt
++-- SNC/
+│   `--snc_2026-Mar-19-1354.txt
+`--Processing/
+    +--Ingest/        # Active capture landing zone
+    `--Structured/    # Parsed files awaiting organization
 ...
 
 ## Notes
