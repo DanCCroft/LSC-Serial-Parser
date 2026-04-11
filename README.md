@@ -90,6 +90,7 @@ To use:
    sudo systemctl start capture_serial
 
 ## File Structure Overview
+...
 /home/User/
 |-capture_serial.py  # Serial capture and frame detection
 
@@ -111,6 +112,7 @@ LSC_Reports/
 └── Processing/
     ├── Ingest/        # Active capture landing zone
     └── Structured/    # Parsed files awaiting organization
+...
 
 ## Notes
 
