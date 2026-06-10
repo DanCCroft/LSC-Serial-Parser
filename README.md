@@ -146,8 +146,8 @@ Instrument (DB25)
       |
      DB9 USB Adapter → Raspberry Pi
 
-TX  ─────────────▶ RX
-RX  ◀──────────── TX
+TX  ─────────────▶ RX 
+RX  ◀──────────── TX 
 GND ───────────── GND
 
 RTS ─┐
