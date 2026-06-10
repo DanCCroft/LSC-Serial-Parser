@@ -1,11 +1,64 @@
 # LSC Serial Data Parser
 
+A low-cost, non-invasive system for capturing and digitizing output from legacy liquid
+scintillation counters.
+
+This project captures RS-232 serial output from a Packard Tri-Carb instrument and
+converts it into structured digital data and readable reports without modifying the
+instrument or disrupting normal operation.
+
 ## Overview
-This project provides a complete pipeline for capturing and processing RS-232 output from a Packard Tri-Carb Liquid Scintillation Counter (LSC).
+
+LSC → RS-232 → Raspberry Pi → Digital Text Report
 
 The system handles both:
 - Sample runs (EOP-terminated)
 - SNC calibration runs (no explicit terminator)
+
+## Data Types and Parsing Strategy
+
+The system handles two fundamentally different data formats:
+
+### SAMPLE Runs (Reconstructed)
+- Continuous CSV-like stream
+- Header + variable-length data line
+- No explicit record boundaries
+- Requires pattern-based reconstruction
+
+### SNC Runs (Pass-Through)
+- Multi-section human-readable report
+- Transmitted in several serial bursts
+- Already structured for interpretation
+
+### Design Approach
+
+- SAMPLE data is parsed and reconstructed into structured JSON
+- SNC data is identified and preserved as a text report
+
+This minimizes complexity while maintaining fidelity to instrument output.
+
+## Why This Matters
+
+Many legacy laboratory instruments still rely on paper-based output.
+
+This system:
+- Eliminates manual transcription
+- Reduces data loss risk
+- Enables automated analysis
+- Extends the useful life of legacy equipment
+
+## Quick Start
+
+1. Connect Raspberry Pi to RS-232 output
+2. Run capture_serial.py
+3. Parser processes captured BIN file automatically
+4. Output appears as:
+   - JSON (sample runs)
+   - BIN (raw data)
+   - TXT report (SNC runs)
+5. Reporter processes the JSON file automatically
+6. Output appears as:
+   - TXT report (organized sample data)
 
 ## Architecture
 
@@ -38,6 +91,69 @@ Sample runs terminate on EOP detection. SNC runs present a more complex challeng
 sections are minutes or hours apart with no explicit terminator. The pipeline uses
 content-based detection to identify the final section and a short completion timer as a 
 safety net.
+
+## Serial Wiring (RS-232 Interface)
+
+### Important
+
+The RS-232 output on the Packard Tri-Carb does not follow a standard PC serial wiring configuration.
+
+A custom cable and breakout wiring were required to establish reliable communication.
+
+---
+
+### Signal Mapping
+
+Instrument (DB25) → USB Serial Adapter (DB9)
+
+| Function                  | DB9 Pin | DB25 Pin | Notes |
+|--------------------------|--------|---------|------|
+| TXD (Instrument → Pi)    | 2      | 2       | Data transmitted from instrument |
+| RXD (Pi → Instrument)    | 3      | 3       | Required for handshake logic     |
+| CTS                      | 8      | 5       | Clear to Send                    |
+| DCD                      | 1      | 8       | Data Carrier Detect              |
+| RI                       | 9      | 22      | Ring Indicator                   |
+
+---
+
+### Hardware Handshake (Critical)
+
+The instrument requires certain hardware handshake signals to be present before it will transmit data.
+
+Because no modem is used, these signals are satisfied locally using jumpers inside the DB25 breakout connector.
+
+---
+
+### Breakout Jumper Configuration
+
+Inside the DB25 breakout:
+
+- Pin 4   ↔ Pin 5   (RTS ↔ CTS)
+- Pin 20  ↔ Pin 6   (DTR ↔ DSR)
+
+These jumpers emulate the expected modem control signals and allow the instrument to transmit data normally.
+
+---
+
+### Notes
+
+- A direct-cable or standard adapter will likely NOT work without these modifications.
+- If no data is received, incorrect handshake wiring is a common cause.
+- Wiring must be verified against the instrument manual and may vary by model.
+Instrument (DB25)
+      |
+      |  custom breakout wiring
+      |
+     DB9 USB Adapter → Raspberry Pi
+
+TX  ─────────────▶ RX
+RX  ◀──────────── TX
+GND ───────────── GND
+
+RTS ─┐
+      ├────────── CTS
+DTR ─┘
+
 
 ## Software Requirements
 
