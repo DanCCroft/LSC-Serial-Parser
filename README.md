@@ -234,12 +234,14 @@ Features:
 To use:
 1. Copy capture_serial.service to /etc/systemd/system/
 2. Adjust paths and user as needed
-3. Run:
-```
-   sudo systemctl daemon-reload
-   sudo systemctl enable capture_serial
-   sudo systemctl start capture_serial
-```
+3. In a command terminal type these commands in sucession:
+   - sudo systemctl daemon-reload
+   - sudo systemctl enable capture_serial
+   - sudo systemctl start capture_serial  
+
+sudo = Substitute User Do; Allows commands to be run with security privileges of another user.
+-User must be part of the sudo group (~admin)
+
 
 ## File Structure
 
