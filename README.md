@@ -149,8 +149,8 @@ Instrument (DB25)
      DB9 USB Adapter → Raspberry Pi
 
 
-TX  ─────────────▶ RX
-RX  ◀──────────── TX
+Instrument TX  ─────────────▶ Adapter RX      
+Instrument RX  ◀────────────  Adapter TX
 GND ───────────── GND
 
 RTS ─┐
@@ -158,6 +158,23 @@ RTS ─┐
 DTR ─┘
 
 ```
+### Signals Types
+
+TX/RX      = Data transmission lines
+RTS/CTS    = Hardware handshaking signals
+DTR/DCD/RI = Control/status signals
+GND        = Electrical ground
+
+### Signal Abbreviations
+
+TX  = Transmit                - Sending data
+RX  = Receive                 - Receiving data
+RTS = Request to Send         - "I want to send"
+DTR = Data Terminal Ready     - "Ready to receive"
+CTS = Clear to Send           - The device is powered and ready to communicate
+DCD = Data Carrier Detect     - Indicates a connection
+RI  = Ring Indicator          - Indicates an incoming signal (Traditionally from a modem)
+GND = Ground
 
 ## Software Requirements
 
