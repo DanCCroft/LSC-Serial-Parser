@@ -239,7 +239,7 @@ To use:
    - sudo systemctl enable capture_serial
    - sudo systemctl start capture_serial  
 
-sudo = Substitute User Do; Allows commands to be run with security privileges of another user.
+sudo = Substitute User Do; Allows commands to be run with security privileges of another user.  
 -User must be part of the sudo group (~admin)
 
 
