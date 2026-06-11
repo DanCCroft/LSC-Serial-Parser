@@ -2,22 +2,44 @@ Contains example systemd service configuration template for running the capture 
 
 ___TEMPLATE ONLY - must be customized before use___
 
-## How to Find Your Serial Port ID
-
-1. Open a command terminal window
-2. Type: ***ls /dev/serial/by-id/***
-
 ## Serial Port Permissions (Required)
 
 Users must have permission to access the serial device.
 
 On Raspberry Pi OS, this typically requires membership in the 'dialout' group.
 
-#### To add a user (case sensitive):
+## Basic Setup Steps
 
-1. Open a command terminal window
-2. Type: ***sudo usermod -a -G dialout youruser***
+_Note: All commands are case-sensitive.  Differences in capitalization will change behavior or cause errors._
 
-After running this command, log out and log back in (or reboot) for changes to take effect.
+1. Identify your serial device:  
+   ***ls /dev/serial/by-id/***
 
-Without this step, the system may fail to receive serial data even if the service is running.
+    This will list connected serial devices.  Use the full path shown here when configuring the service file.
+
+2. Add your user to the dialout group (required for serial access):  
+   ***sudo usermod -a -G dialout youruser***
+
+   Log out and back in (or reboot) after running this command.
+
+3. Copy the service file:  
+   ***sudo cp capture_serial.service /etc/systemd/system/***
+
+4. Edit the service file to match your environment:
+   - User
+   - ExecStart path
+   - Serial device path
+
+    On Raspberry Pi OS, you may use:
+     - Mousepad (basic text editor
+     - Thonny (user-friendly code editor)
+    These can be opened from the application menu.
+
+5. Reload systemd:  
+   ***sudo systemctl daemon-reload***
+
+6. Enable and start the service (_successive commands_):  
+   ***sudo systemctl enable lsc-capture.service***  
+   ***sudo systemctl start lsc-capture.service***
+
+
