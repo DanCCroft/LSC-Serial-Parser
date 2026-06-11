@@ -205,12 +205,14 @@ on component choices and availability. Current Raspberry Pi pricing
 fluctuates — check official resellers for current rates.
 
 ## Serial Configuration
+```
 Baud rate   : 1200
 Data bits   : 7
 Parity      : Even
 Stop bits   : 1
 Flow control: None
 
+```
 A sample systemd service file is provided for running the capture script as a background service.
 
 Features:
