@@ -4,5 +4,5 @@ ___The file is not usable as is.  Paths and user settings will need to be custom
 
 ## How to Find Your Serial Port ID
 
-1. Open a terminal window
+1. Open a command terminal window
 2. Type __ls /dev/serial/by-id/
