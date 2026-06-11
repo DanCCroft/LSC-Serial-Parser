@@ -157,7 +157,6 @@ RTS ─┐
       ├────────── CTS
 DTR ─┘
 
-```
 ### Signals Types
 
 TX/RX      = Data transmission lines
@@ -175,6 +174,7 @@ CTS = Clear to Send           - The device is powered and ready to communicate
 DCD = Data Carrier Detect     - Indicates a connection
 RI  = Ring Indicator          - Indicates an incoming signal (Traditionally from a modem)
 GND = Ground
+```
 
 ## Software Requirements
 
