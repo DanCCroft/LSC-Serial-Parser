@@ -156,14 +156,7 @@ GND ───────────── GND
 RTS ─┐
       ├────────── CTS
 DTR ─┘
-```
 
-### Signals Types
-```
-TX/RX      = Data transmission lines
-RTS/CTS    = Hardware handshaking signals
-DTR/DCD/RI = Control/status signals
-GND        = Electrical ground
 ```
 
 ### Signal Abbreviations
@@ -175,7 +168,12 @@ DTR = Data Terminal Ready     - "Ready to receive"
 CTS = Clear to Send           - The device is powered and ready to communicate
 DCD = Data Carrier Detect     - Indicates a connection
 RI  = Ring Indicator          - Indicates an incoming signal (Traditionally from a modem)
-GND = Ground
+GND = Ground                  - Electrical ground
+
+TX/RX      = Data transmission lines
+RTS/CTS    = Hardware handshaking signals
+DTR/DCD/RI = Control/status signals
+
 ```
 
 ## Software Requirements
