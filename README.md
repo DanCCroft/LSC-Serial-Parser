@@ -140,15 +140,18 @@ These jumpers emulate the expected modem control signals and allow the instrumen
 - A direct-cable or standard adapter will likely NOT work without these modifications.
 - If no data is received, incorrect handshake wiring is a common cause.
 - Wiring must be verified against the instrument manual and may vary by model.
+
+```
 Instrument (DB25)
       |
       |  custom breakout wiring
       |
      DB9 USB Adapter → Raspberry Pi
 
-TX → RX 
-RX ← TX 
-GND ↔ GND
+
+TX  ─────────────▶ RX
+RX  ◀──────────── TX
+GND ───────────── GND
 
 RTS ─┐
       ├────────── CTS
