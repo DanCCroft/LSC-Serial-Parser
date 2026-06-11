@@ -141,7 +141,7 @@ These jumpers emulate the expected modem control signals and allow the instrumen
 - If no data is received, incorrect handshake wiring is a common cause.
 - Wiring must be verified against the instrument manual and may vary by model.
 
-``
+```
 Instrument (DB25)
       |
       |  custom breakout wiring
@@ -157,7 +157,7 @@ RTS ─┐
       ├────────── CTS
 DTR ─┘
 
-``
+```
 
 ## Software Requirements
 
