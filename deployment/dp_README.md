@@ -2,6 +2,8 @@ Contains example systemd service configuration template for running the capture 
 
 ___TEMPLATE ONLY - must be customized before use___
 
+**This template is not usable as-is.  Paths, user name, and device identifiers must be customized for your environment.**
+
 ## Serial Port Permissions (Required)
 
 Users must have permission to access the serial device.
@@ -22,24 +24,28 @@ _Note: All commands are case-sensitive.  Differences in capitalization will chan
 
    Log out and back in (or reboot) after running this command.
 
-3. Copy the service file:  
+   If this step is skipped, the service file may run but no data will be received
+
+4. Copy the service file:  
    ***sudo cp capture_serial.service /etc/systemd/system/***
 
-4. Edit the service file to match your environment:
-   - User
-   - ExecStart path
-   - Serial device path
+5. Edit the service file to match your environment:
 
     On Raspberry Pi OS, you may use:
      - Mousepad (basic text editor
      - Thonny (user-friendly code editor)
     These can be opened from the application menu.
 
-5. Reload systemd:  
+    Update the following fields:
+     - User
+     - ExecStart path
+     - Serial device path
+
+6. Reload systemd:  
    ***sudo systemctl daemon-reload***
 
-6. Enable and start the service (_successive commands_):  
+7. Enable and start the service (_successive commands_):  
    ***sudo systemctl enable lsc-capture.service***  
    ***sudo systemctl start lsc-capture.service***
 
-
+Once running, use the systemd_cheatsheet.md in the docs/ directory for service management and troubleshooting.
