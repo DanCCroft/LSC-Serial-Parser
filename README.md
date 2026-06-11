@@ -7,6 +7,9 @@ This project captures RS-232 serial output from a Packard Tri-Carb instrument an
 converts it into structured digital data and readable reports without modifying the
 instrument or disrupting normal operation.
 
+The design emphasizes minimal intervention: reconstruct data only when necessary and
+preserve original instrument output whenever possible.
+
 ## Overview
 
 LSC → RS-232 → Raspberry Pi → Digital Text Report
@@ -32,10 +35,14 @@ The system handles two fundamentally different data formats:
 
 ### Design Approach
 
-- SAMPLE data is parsed and reconstructed into structured JSON
-- SNC data is identified and preserved as a text report
+- SAMPLE data is parsed and reconstructed into structured records
+- SNC data is preserved as a formatted report with minimal presentation formatting
 
-This minimizes complexity while maintaining fidelity to instrument output.
+SNC output is not modified in content.  A simple header and spacing between 
+sections is added to improve readability of the resulting text report.
+
+This avoid unnecessary complexity while maintaining fidelity to the
+instrument output.
 
 ## Why This Matters
 
@@ -85,7 +92,9 @@ Capture → Parse → Report → Organize
 ## Key Technical Challenge
 
 The instrument outputs a continuous comma-delimited stream with no explicit record boundaries.  
-Records must be reconstructed using deterministic segmentation and timestamp extraction.
+Records must be reconstructed using deterministic segmentation and timestamp extraction.  The
+process of separating the individual records from the stream is the primary technical challenge
+addressed by this system.
 
 Sample runs terminate on EOP detection. SNC runs present a more complex challenge — five 
 sections are minutes or hours apart with no explicit terminator. The pipeline uses
@@ -246,6 +255,10 @@ To use:
 
 - RS-232 pinout may be non-standard; breakout-based wiring may be required
 - Designed for Raspberry Pi but portable to other systems
+- Example captured data and corresponding outputs are available in the
+  sample_data/ directory for reference and testing.
+- There is a systemd cheat sheet available in docs/ for help in managing the
+  system once operational.
 
 ## Troubleshooting
 - No data received: Check serial port path with `ls /dev/serial/by-id/`
@@ -253,6 +266,10 @@ To use:
   match your instrument's exact output using xxd on a captured file
 - Wrong user permissions: Ensure service runs as the same user 
   that owns the output directories
+- In rare cases, multiple runs (e.g., SNC followed by SAMPLE) may be captured
+  into a single file if a previous capture is not fully processed before new
+  activity begins.  This condition can be detected and corrected during
+  analysis.
 
 ## License
 
