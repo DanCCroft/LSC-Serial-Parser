@@ -101,6 +101,43 @@ sections are minutes or hours apart with no explicit terminator. The pipeline us
 content-based detection to identify the final section and a short completion timer as a 
 safety net.
 
+## Software Requirements
+
+- Python 3
+- pyserial
+
+## Equipment Requirements
+
+### Computing
+- Raspberry Pi 4 (4GB) or Raspberry Pi 5 (developer used 8GB Pi 5)
+- Official power supply
+- MicroSD card (32GB Class 10 or better)
+- Case with cooling
+- Anker 4-port USB hub (necessary — serial adapter, keyboard, 
+  mouse, and USB transfer drive consume all available ports)
+
+### Display and Input
+- Monitor with appropriate cable
+- Wireless keyboard and mouse combo
+
+### Serial Interface
+- USB-A to DB9 RS-232 adapter (Prolific PL2303 chipset)
+- RS-232 DB9 extension cable with pigtail ends, Female
+- DB25 breakout connector, Female
+
+Note: Total hardware investment in the $200–350 range depending 
+on component choices and availability. Current Raspberry Pi pricing 
+fluctuates — check official resellers for current rates.
+
+## Serial Configuration
+```
+Baud rate   : 1200
+Data bits   : 7
+Parity      : Even
+Stop bits   : 1
+Flow control: None
+
+```
 ## Serial Wiring (RS-232 Interface)
 
 ### Important
@@ -185,43 +222,6 @@ DTR/DCD/RI = Control/status signals
 
 ```
 
-## Software Requirements
-
-- Python 3
-- pyserial
-
-## Equipment Requirements
-
-### Computing
-- Raspberry Pi 4 (4GB) or Raspberry Pi 5 (developer used 8GB Pi 5)
-- Official power supply
-- MicroSD card (32GB Class 10 or better)
-- Case with cooling
-- Anker 4-port USB hub (necessary — serial adapter, keyboard, 
-  mouse, and USB transfer drive consume all available ports)
-
-### Display and Input
-- Monitor with appropriate cable
-- Wireless keyboard and mouse combo
-
-### Serial Interface
-- USB-A to DB9 RS-232 adapter (Prolific PL2303 chipset)
-- RS-232 DB9 extension cable with pigtail ends, Female
-- DB25 breakout connector, Female
-
-Note: Total hardware investment in the $200–350 range depending 
-on component choices and availability. Current Raspberry Pi pricing 
-fluctuates — check official resellers for current rates.
-
-## Serial Configuration
-```
-Baud rate   : 1200
-Data bits   : 7
-Parity      : Even
-Stop bits   : 1
-Flow control: None
-
-```
 ## Implementation
 A sample systemd service file is provided in the deployment/ 
 directory for running the capture script as a background service.
@@ -252,6 +252,15 @@ To use:
 ├── last_snc.txt            # Auto-updated calibration timestamp
 └── capture_serial.service  # Copy to /etc/systemd/system/
 ```
+## Access and Security
+
+- SSH access was used for remote monitoring and maintenance
+- Basic access controls were implemented (e.g. restricted user
+  access, controlled network exposure), but detailed system
+  hardening is outside the scope of this repository
+- Direct physical access to the device is restricted
+- Users should follow their institution's IT and security
+  guidelines when deploying similar systems
 
 ## Notes
 
