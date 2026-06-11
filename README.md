@@ -156,6 +156,7 @@ GND ───────────── GND
 RTS ─┐
       ├────────── CTS
 DTR ─┘
+```
 
 ### Signals Types
 ```
