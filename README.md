@@ -223,7 +223,8 @@ Flow control: None
 
 ```
 ## Implementation
-A sample systemd service file is provided for running the capture script as a background service.
+A sample systemd service file is provided in the deployment/ 
+directory for running the capture script as a background service.
 
 Features:
 - Automatic restart on failure
