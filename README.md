@@ -166,8 +166,8 @@ RX  = Receive                 - Receiving data
 RTS = Request to Send         - "I want to send"
 DTR = Data Terminal Ready     - "Ready to receive"
 CTS = Clear to Send           - The device is powered and ready to communicate
-DCD = Data Carrier Detect     - Indicates a connection
-RI  = Ring Indicator          - Indicates an incoming signal (Traditionally from a modem)
+DCD = Data Carrier Detect     - Indicates a connection (originally "carrier detected")
+RI  = Ring Indicator          - Indicates an incoming signal (traditionally from a modem)
 GND = Ground                  - Electrical ground
 
 TX/RX      = Data transmission lines
