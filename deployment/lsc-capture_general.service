@@ -1,24 +1,36 @@
 [Unit]
-Description= Packard Tri-Carb 2100TR RS-232 Capture Service
-#Update these paths to match your unique serial adapter
+Description=Packard Tri-Carb 2100TR RS-232 Capture Service
+
+# TEMPLATE ONLY — must be customized before use
+
+# Replace "YourUsbDevicePath" with the actual device unit, e.g.:
+# dev-serial-by\x2did-usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0.device
 Requires=YourUsbDevicePath
 BindsTo=YourUsbDevicePath
 After=YourUsbDevicePath
+
 StartLimitIntervalSec=60
 StartLimitBurst=5
 
 [Service]
 Type=simple
 User=youruser
-#Update this path to match your environment
-ExecStart=/home/youruser/capture_serial.py
+
+# Set working directory
+WorkingDirectory=/home/youruser
+
+# Update this path to match your environment
+ExecStart=/usr/bin/python3 /home/youruser/capture_serial.py
+
 Restart=always
 RestartSec=5
 TimeoutStopSec=15
 SendSIGKILL=no
 KillSignal=SIGTERM
+
 StandardOutput=journal
 StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
+
