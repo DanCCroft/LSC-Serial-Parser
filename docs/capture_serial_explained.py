@@ -88,6 +88,27 @@ except Exception as e:
 ser.reset_input_buffer()
 print("Serial port open. Waiting for data...")
 
+ser.reset_input_buffer()
+print("Serial port open. Waiting for data...")
+
+# --------------------------------------------------
+# Ingest directory pre-check (non-invasive alert)
+# --------------------------------------------------
+
+# Check for any lingering tmp*.bin files
+# - The Ingest/ directory should be vacated after each run
+# - If there is still a file it will make a note in the alerts/ directory to help with diagnosis
+
+alert_path = "/home/labuser/Desktop/LSC_Reports/Processing/alerts/ingest_warning.txt"
+
+try:
+    if any(name.startswith("tmp_") for name in os.listdir(INGEST_DIR)):
+        os.makedirs(os.path.dirname(alert_path), exist_ok=True)
+        with open(alert_path, "a") as f:
+            f.write(f"WARNING: Existing tmp file detected at startup: {datetime.datetime.now()}\n")
+except Exception as e:
+    print(f"Alert check failed: {e}")
+
 run_active     = False
 current_file   = None
 tmp_path       = None
