@@ -255,10 +255,10 @@ To use:
 ## Access and Security
 
 - SSH access was used for remote monitoring and maintenance
+- Direct physical access to the device is restricted
 - Basic access controls were implemented (e.g. restricted user
   access, controlled network exposure), but detailed system
   hardening is outside the scope of this repository
-- Direct physical access to the device is restricted
 - Users should follow their institution's IT and security
   guidelines when deploying similar systems
 
