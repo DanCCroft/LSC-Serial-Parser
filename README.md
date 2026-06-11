@@ -222,6 +222,7 @@ Stop bits   : 1
 Flow control: None
 
 ```
+## Implementation
 A sample systemd service file is provided for running the capture script as a background service.
 
 Features:
