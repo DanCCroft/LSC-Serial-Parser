@@ -235,9 +235,11 @@ To use:
 1. Copy capture_serial.service to /etc/systemd/system/
 2. Adjust paths and user as needed
 3. Run:
+```
    sudo systemctl daemon-reload
    sudo systemctl enable capture_serial
    sudo systemctl start capture_serial
+```
 
 ## File Structure
 
