@@ -1,0 +1,36 @@
+{
+  "run_header": {
+    "protocol": "9",
+    "tsie_mode": "tSIE/AEC",
+    "roiA_low": 2.0,
+    "roiA_high": 18.6,
+    "roiB_low": 18.6,
+    "roiB_high": 156.0,
+    "roiC_low": 156.0,
+    "roiC_high": 2000.0
+  },
+  "samples": [
+    {
+      "protocol": "9",
+      "datetime": "03-Apr-2026 14:59",
+      "cassette": "14",
+      "position": "1",
+      "counttime": 1.0,
+      "roi_a": 3.8034,
+      "roi_b": 6.0,
+      "roi_c": 4.0,
+      "tSIE": 498.944
+    },
+    {
+      "protocol": "9",
+      "datetime": "03-Apr-2026 15:01",
+      "cassette": "14",
+      "position": "2",
+      "counttime": 1.0,
+      "roi_a": 5.7967,
+      "roi_b": 12.0,
+      "roi_c": 11.0,
+      "tSIE": 501.0158
+    }
+  ]
+}
