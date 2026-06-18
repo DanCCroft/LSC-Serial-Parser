@@ -267,7 +267,7 @@ Example structure:
 - Users should follow their institution's IT and security
   guidelines when deploying similar systems
 
-## Notes
+## Additional Notes
 
 - RS-232 pinout may be non-standard; breakout-based wiring may be required
 - Designed for Raspberry Pi but portable to other systems
@@ -275,6 +275,17 @@ Example structure:
   sample_data/ directory for reference and pipeline verification.
 - There is a systemd cheat sheet available in docs/ for help in managing the
   system once operational.
+
+- Some operational details and implementation considerations are documented in
+specific sections of the repository:
+    - Serial Wiring and hardware handshake requirements are described above in
+    the wiring section
+    - Service setup and permissions (e.g. dialout group) are covered in the 
+    deployment/ directory of this repository.
+    - Parsing behavior and edge cases are explained in the docs/ annotated scripts
+- The core scripts, as provided, are designed to retain raw (.bin) and structured
+  (.json) files by default to support validation, debugging, and re-processing if
+  needed.
 
 ## Troubleshooting
 - No data received: Check serial port path with `ls /dev/serial/by-id/`
