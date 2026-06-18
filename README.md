@@ -298,6 +298,8 @@ specific sections of the repository:
   into a single file if a previous capture is not fully processed before new
   activity begins.  This condition can be detected (e.g. via processing anomolies)
   and corrected during analysis.
+- No data appears immediately during a SAMPLE run:  Data transmission may not begin
+  until the first sample completes.  This is expected behavior.
 
 ## License
 
