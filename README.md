@@ -289,10 +289,11 @@ specific sections of the repository:
 
 ## Troubleshooting
 - No data received: Check serial port path with `ls /dev/serial/by-id/`
-- SNC run not captured: Confirm BKG_HEADER and SNC_TERMINATOR 
-  match your instrument's exact output using xxd on a captured file
-- Wrong user permissions: Ensure service runs as the same user 
-  that owns the output directories
+- SNC run not captured: Use the command xxd command in a terminal followed by the
+  file name to inspect raw output and confirm that spacing, line endings, and
+  terminator strings match the expected values.
+- Wrong user permissions: Ensure service runs as the same user that owns the output
+  directories.
 - In rare cases, multiple runs (e.g., SNC followed by SAMPLE) may be captured
   into a single file if a previous capture is not fully processed before new
   activity begins.  This condition can be detected (e.g. via processing anomolies)
