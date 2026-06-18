@@ -15,8 +15,10 @@ preserve original instrument output whenever possible.
 LSC → RS-232 → Raspberry Pi → Digital Text Report
 
 The system handles both:
-- Sample runs (EOP-terminated)
-- SNC calibration runs (no explicit terminator)
+    - Sample runs (EOP-terminated)
+    - SNC calibration runs (no explicit terminator)
+
+These two data types require different handling strategies, described below.
 
 ## Data Types and Parsing Strategy
 
@@ -41,7 +43,7 @@ The system handles two fundamentally different data formats:
 SNC output is not modified in content.  A simple header and spacing between 
 sections is added to improve readability of the resulting text report.
 
-This avoid unnecessary complexity while maintaining fidelity to the
+This avoids unnecessary complexity while maintaining fidelity to the
 instrument output.
 
 ## Why This Matters
@@ -60,41 +62,42 @@ This system:
 2. Run capture_serial.py
 3. Parser processes captured BIN file automatically
 4. Output appears as:
-   - JSON (sample runs)
-   - BIN (raw data)
-   - TXT report (SNC runs)
+       - JSON (sample runs)
+       - BIN (raw data)
+       - TXT report (SNC runs)
 5. Reporter processes the JSON file automatically
 6. Output appears as:
-   - TXT report (organized sample data)
+       - TXT report (organized sample data)
 
 ## Architecture
 
 Capture → Parse → Report → Organize
 
 1. capture_serial.py
-   - Reads continuous RS-232 stream
-   - Detects run type (SAMPLE or SNC)
-   - Writes raw data to file
+       - Reads continuous RS-232 stream
+       - Detects run type (SAMPLE or SNC)
+       - Writes raw data to file
 
 2. parser.py
-   - Reconstructs records from continuous stream
-   - Outputs structured JSON
-   - Handles SNC section parsing
+       - Reconstructs records from continuous stream
+       - Outputs structured JSON
+       - Detects SNC data and converts captured reports into formatted text output
 
 3. reporter.py
-   - Generates human-readable reports
-   - Organizes output by protocol and date
+       - Generates human-readable reports
+       - Organizes output by protocol and date
 
 4. structured_organizer.py
-   - Runs periodically via cron
-   - Moves processed files into protocol and date subfolders
+       - Runs periodically via cron
+       - Moves processed files into protocol and date subfolders
 
 ## Key Technical Challenge
 
 The instrument outputs a continuous comma-delimited stream with no explicit record boundaries.  
 Records must be reconstructed using deterministic segmentation and timestamp extraction.  The
 process of separating the individual records from the stream is the primary technical challenge
-addressed by this system.
+addressed by this system.  This requirement to infer structure from an unstructured stream is the central
+technical problem addresed by this system.
 
 Sample runs terminate on EOP detection. SNC runs present a more complex challenge — five 
 sections are minutes or hours apart with no explicit terminator. The pipeline uses
@@ -227,21 +230,23 @@ A sample systemd service file is provided in the deployment/
 directory for running the capture script as a background service.
 
 Features:
-- Automatic restart on failure
-- Boot-time startup
-- System-level logging via journalctl
+    - Automatic restart on failure
+    - Boot-time startup
+    - System-level logging via journalctl
 
 To use:
 1. Copy capture_serial.service to /etc/systemd/system/
 2. Adjust paths and user as needed
-3. In a command terminal type these commands in sucession:
-   - sudo systemctl daemon-reload
-   - sudo systemctl enable capture_serial
-   - sudo systemctl start capture_serial
+3. In a command terminal type these commands in succession:
+       - sudo systemctl daemon-reload
+       - sudo systemctl enable capture_serial
+       - sudo systemctl start capture_serial
 
 ## File Structure
 
 ```
+Example structure:
+
 /home/labuser/
 └── capture_serial.py       # Serial capture and frame detection
 
@@ -267,7 +272,7 @@ To use:
 - RS-232 pinout may be non-standard; breakout-based wiring may be required
 - Designed for Raspberry Pi but portable to other systems
 - Example captured data and corresponding outputs are available in the
-  sample_data/ directory for reference and testing.
+  sample_data/ directory for reference and pipeline verification.
 - There is a systemd cheat sheet available in docs/ for help in managing the
   system once operational.
 
@@ -279,8 +284,8 @@ To use:
   that owns the output directories
 - In rare cases, multiple runs (e.g., SNC followed by SAMPLE) may be captured
   into a single file if a previous capture is not fully processed before new
-  activity begins.  This condition can be detected and corrected during
-  analysis.
+  activity begins.  This condition can be detected (e.g. via processing anomolies)
+  and corrected during analysis.
 
 ## License
 
