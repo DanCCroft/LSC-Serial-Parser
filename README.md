@@ -300,6 +300,12 @@ specific sections of the repository:
   and corrected during analysis.
 - No data appears immediately during a SAMPLE run:  Data transmission may not begin
   until the first sample completes.  This is expected behavior.
+- Interrupted runs followed by restart:
+  - If a run is interrupted and capture continues, partial output from the aborted
+  run may remain in the same file as the new run.  This can cause parsing failures.
+  - To avoid this, stop the capture process (**sudo systemctl stop lsc-capture.service**)
+    after an interruption before restarting the instrument run.  This ensures data is
+    isolated in a separate file.
 
 ## License
 
