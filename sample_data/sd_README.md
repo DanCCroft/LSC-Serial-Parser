@@ -10,8 +10,6 @@ Both SAMPLE and SNC data types are represented, illustrating the system’s diff
 
 These files allow users to verify parser behavior and understand the expected data flow through the system.  Included are both minimal and representative sample runs for demonstration and validation.
 
-Note: Additional SAMPLE run data will be added to further illustrate record reconstruction and structured output.
-
 ### File Naming
 
 Example files use the same naming conventions as the live system:
@@ -27,7 +25,7 @@ In this folder, files are shown together for clarity and demonstration.
 
 ### Verifying the Pipeline
 
-The included files can be used to verify the parser and reporting stages independently of live capture.
+The included .bin files can be used to verify the parser and reporting stages independently of live capture.
 
 Example:
 
