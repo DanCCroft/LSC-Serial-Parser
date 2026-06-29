@@ -1,0 +1,27 @@
+Tri-Carb Liquid Scintillation Counter Report
+============================================
+
+Instrument Serial : TriCarb-2100TR - SN: 421879
+Protocol Number   : 9
+Run Date          : 2026-06-26
+Run Time          : 09:41
+
+Last Calibration  : 22-Jun-2026
+
+Region A          : 2.0 – 18.6 keV
+Region B          : 18.6 – 156.0 keV
+Region C          : 156.0 – 2000.0 keV
+tSIE Mode         : tSIE/AEC
+
+ Cassette  Position   Count Time      CPM A      CPM B      CPM C        tSIE
+-----------------------------------------------------------------------------
+       49         1          1.0       12.0        6.0        5.0      642.75
+       49         2          1.0        4.0        3.0        5.0      616.86
+       49         3          1.0        4.0        4.0        6.0      639.82
+       49         4          1.0        9.3        5.7        3.0      634.77
+       49         5          1.0        6.0        5.0        5.0      641.89
+       49         6          1.0        6.0        8.0        3.0      634.23
+       49         7          1.0        4.0       10.0        1.0      637.52
+       49         8          1.0        5.0        3.0        3.0      629.60
+       49         9          1.0        4.0        6.0        9.0      631.32
+       49        10          1.0        8.0        4.0        3.0      627.02
