@@ -61,35 +61,35 @@ This system:
 1. Connect Raspberry Pi to RS-232 output
 2. Run capture_serial.py
 3. Parser processes captured BIN file automatically
-4. Output appears as:
-       - JSON (sample runs)
-       - BIN (raw data)
+4. Output appears as:  
+       - JSON (sample runs)  
+       - BIN (raw data)  
        - TXT report (SNC runs)
 5. Reporter processes the JSON file automatically
-6. Output appears as:
+6. Output appears as:  
        - TXT report (organized sample data)
 
 ## Architecture
 
 Capture → Parse → Report → Organize
 
-1. capture_serial.py
-       - Reads continuous RS-232 stream
-       - Detects run type (SAMPLE or SNC)
-       - Writes raw data to file
+1. capture_serial.py  
+       - Reads continuous RS-232 stream  
+       - Detects run type (SAMPLE or SNC)  
+       - Writes raw data to file  
 
-2. parser.py
-       - Reconstructs records from continuous stream
-       - Outputs structured JSON
+2. parser.py  
+       - Reconstructs records from continuous stream  
+       - Outputs structured JSON  
        - Detects SNC data and converts captured reports into formatted text output
 
-3. reporter.py
-       - Generates human-readable reports
-       - Organizes output by protocol and date
+3. reporter.py  
+       - Generates human-readable reports  
+       - Organizes output by protocol and date  
 
-4. structured_organizer.py
-       - Runs periodically via cron
-       - Moves processed files into protocol and date subfolders
+4. structured_organizer.py  
+       - Runs periodically via cron  
+       - Moves processed files into protocol and date subfolders  
 
 ## Key Technical Challenge
 
@@ -289,9 +289,10 @@ specific sections of the repository:
 
 ## Troubleshooting
 - No data received: Check serial port path with `ls /dev/serial/by-id/`
-- SNC run not captured: Use the command xxd command in a terminal followed by the
+- SNC run not captured: Use the hd command in a terminal followed by the
   file name to inspect raw output and confirm that spacing, line endings, and
-  terminator strings match the expected values.
+  terminator strings match the expected values. Example: `hd capture_file.bin`  
+      - Users with xxd installed may prefer `xxd capture_file.bin` 
 - Wrong user permissions: Ensure service runs as the same user that owns the output
   directories.
 - In rare cases, multiple runs (e.g., SNC followed by SAMPLE) may be captured
