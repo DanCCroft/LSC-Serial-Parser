@@ -38,6 +38,14 @@ import json
 import re
 import subprocess
 
+SNC_HEADERS = (
+    "C14 IPA DATA PROCESSED",
+    "C14 CHI SQUARE IPA DATA PROCESSED",
+    "H3 IPA DATA PROCESSED",
+    "H3 CHI SQUARE IPA DATA PROCESSED",
+    "BKG IPA DATA PROCESSED",
+)
+
 print("=== PARSER INVOKED ===")
 print("Args:", sys.argv)
 
@@ -106,14 +114,6 @@ if lines and lines[0] != first_line:
 # ==================================================
 # SNC PROCESSING PATH (Calibration Reports)
 # ==================================================
-
-SNC_HEADERS = (
-    "C14 IPA DATA PROCESSED",
-    "C14 CHI SQUARE IPA DATA PROCESSED",
-    "H3 IPA DATA PROCESSED",
-    "H3 CHI SQUARE IPA DATA PROCESSED",
-    "BKG IPA DATA PROCESSED",
-)
 
 if any(first_line.startswith(h) for h in SNC_HEADERS):
     print(">>> SNC DETECTED")
@@ -238,7 +238,8 @@ else:
     except Exception as e:
         print(f"Warning: could not write last_snc.txt: {e}")
 
-        sys.exit(0)
+    print("SNC processing complete")
+    sys.exit(0)
 
 # ==================================================
 # SAMPLE PATH
